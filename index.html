@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAPE - Instituto Adventista Pernambucano de Ensino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para cores de tons prestos,brancos e cinzas e animações */
+        .rainbow-bg {
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+        }
+        .rainbow-text {
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo-placeholder {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .mosaic-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .menu-open {
+            transform: translateX(0);
+        }
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900 smooth-scroll">
+    <!-- Header -->
+    <header class="rainbow-bg text-white py-6 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="logo-placeholder">
+                <span class="text-white">Logo IAPE</span>
+            </div>
+            <h1 class="text-3xl font-extrabold rainbow-text">IAPE</h1>
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#sobre" class="hover:text-yellow-300 transition font-semibold">Sobre</a>
+                <a href="#fotos" class="hover:text-yellow-300 transition font-semibold">Fotos</a>
+                <a href="#contato" class="hover:text-yellow-300 transition font-semibold">Contato</a>
+            </nav>
+            <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-blue-800 text-white transform translate-x-full md:hidden flex flex-col space-y-4 p-6">
+                <button id="menu-close" class="self-end text-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <a href="#sobre" class="hover:text-yellow-300 transition font-semibold">Sobre</a>
+                <a href="#fotos" class="hover:text-yellow-300 transition font-semibold">Fotos</a>
+                <a href="#contato" class="hover:text-yellow-300 transition font-semibold">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Sobre (Corpo com 3 colunas) -->
+    <section id="sobre" class="py-16 bg-gradient-to-r from-yellow-200 via-green-200 to-blue-200">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-extrabold text-center rainbow-text mb-12 fade-in">Sobre o IAPE</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center fade-in">
+                    <div class="bg-gray-300 h-48 w-full mb-4 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500">Foto Aqui</span>
+                    </div>
+                    <p class="text-lg">Nossa missão é oferecer educação de qualidade, promovendo valores e desenvolvimento integral.</p>
+                </div>
+                <div class="text-center fade-in">
+                    <div class="bg-gray-300 h-48 w-full mb-4 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500">Foto Aqui</span>
+                    </div>
+                    <p class="text-lg">Temos uma equipe dedicada de professores e profissionais comprometidos com o sucesso dos alunos.</p>
+                </div>
+                <div class="text-center fade-in">
+                    <div class="bg-gray-300 h-48 w-full mb-4 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500">Foto Aqui</span>
+                    </div>
+                    <p class="text-lg">Nossas instalações modernas proporcionam um ambiente ideal para o aprendizado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Fotos (Mosaico) -->
+    <section id="fotos" class="py-16 bg-gradient-to-r from-red-200 via-orange-200 to-yellow-200">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-extrabold text-center rainbow-text mb-12 fade-in">Galeria de Fotos</h2>
+            <div class="mosaic-grid">
+                <div class="bg-gray-300 h-48 rounded-lg flex items-center justify-center fade-in">
+                    <span class="text-gray-500">Foto 1</span>
+                </div>
+                <div class="bg-gray-300 h-48 rounded-lg flex items-center justify-center fade-in">
+                    <span class="text-gray-500">Foto 2</span>
+                </div>
+                <div class="bg-gray-300 h-48 rounded-lg flex items-center justify-center fade-in">
+                    <span class="text-gray-500">Foto 3</span>
+                </div>
+                <div class="bg-gray-300 h-48 rounded-lg flex items-center justify-center fade-in">
+                    <span class="text-gray-500">Foto 4</span>
+                </div>
+                <div class="bg-gray-300 h-48 rounded-lg flex items-center justify-center fade-in">
+                    <span class="text-gray-500">Foto 5</span>
+                </div>
+                <div class="bg-gray-300 h-48 rounded-lg flex items-center justify-center fade-in">
+                    <span class="text-gray-500">Foto 6</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Contato -->
+    <section id="contato" class="py-16 bg-gradient-to-r from-green-200 via-blue-200 to-indigo-200">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-extrabold text-center rainbow-text mb-12 fade-in">Entre em Contato</h2>
+            <div class="max-w-lg mx-auto fade-in">
+                <div class="space-y-4">
+                    <input id="nome" type="text" placeholder="Seu Nome" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-violet-500">
+                    <textarea id="mensagem" placeholder="Sua Mensagem" class="w-full p-3 border rounded-lg h-32 focus:ring-2 focus:ring-violet-500"></textarea>
+                    <button id="enviar-whatsapp" class="rainbow-bg text-white px-6 py-3 rounded-lg hover:opacity-90 transition font-semibold">Enviar via WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="rainbow-bg text-white py-6">
+        <div class="container mx-auto px-4 text-center fade-in">
+            <p class="text-lg font-semibold">IAPE - Instituto Adventista Pernambucano de Ensino</p>
+            <p>Arthur | Telefone: (84) 99695-0052 | BR 232 KM 91, CEP</p>
+            <p>© 2025 IAPE. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu sanduíche
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('menu-open');
+        });
+
+        menuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('menu-open');
+        });
+
+        // Rolagem suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                mobileMenu.classList.remove('menu-open');
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animação de fade-in ao rolar
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Enviar mensagem para WhatsApp
+        document.getElementById('enviar-whatsapp').addEventListener('click', () => {
+            const nome = document.getElementById('nome').value || 'Visitante';
+            const mensagem = document.getElementById('mensagem').value || 'Olá, gostaria de mais informações sobre o IAPE!';
+            const numero = '5584996950052'; // Número fornecido sem caracteres especiais
+            const texto = encodeURIComponent(`Olá, meu nome é ${nome}. ${mensagem}`);
+            window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
+        });
+    </script>
+</body>
+</html>
