@@ -3,212 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore a arquitetura única do Instituto Adventista Pernambucano de Ensino (IAPE), combinando tradição, inovação e sustentabilidade.">
+    <meta name="keywords" content="IAPE, Instituto Adventista, arquitetura, Pernambuco, educação, sustentabilidade">
+    <meta name="author" content="Arthur Figueiró">
     <title>IAPE - Instituto Adventista Pernambucano de Ensino</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos personalizados para cores em tons de marrons, pretos e brancos e animações */
-        .header-bg {
-            background: linear-gradient(90deg, #3C2F2F, #4A3728, #5C4636);
-        }
-        .header-text {
-            background: linear-gradient(90deg, #FFFFFF, #D4C2A8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .logo-placeholder {
-            background-color: rgba(255, 255, 255, 0.2);
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-        }
+        /* Smooth fade-in animation */
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .mosaic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
+        /* Scale effect for images */
+        .mosaic img {
+            transition: transform 0.3s ease, filter 0.3s ease;
         }
-        .mosaic-grid img {
+        .mosaic img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        /* Gradient background with subtle overlay */
+        body {
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Side decorative elements with subtle animation */
+        .side-decor-left, .side-decor-right {
+            position: fixed;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(180deg, #5b6dd1, #2b6a94);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .side-decor-left {
+            left: 0;
+            clip-path: polygon(0 0, 100% 10%, 50% 50%, 100% 90%, 0 100%);
+        }
+        .side-decor-right {
+            right: 0;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%, 50% 50%);
+        }
+        .side-decor-left.visible, .side-decor-right.visible {
+            opacity: 0.2;
+        }
+        /* Navigation bar styling */
+        .nav-bar {
+            transition: all 0.3s ease;
+        }
+        .nav-bar a {
+            transition: all 0.3s ease;
+        }
+        .nav-bar a:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(45deg, #63b3ed, #bee3f8);
+        }
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+        .nav-menu.active {
+            display: flex;
+        }
+        /* Lightbox for gallery */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
             border-radius: 8px;
         }
-        .menu-open {
-            transform: translateX(0);
+        .lightbox.active {
+            display: flex;
         }
-        #mobile-menu {
-            transition: transform 0.3s ease-in-out;
+        /* Form styling */
+        .contact-form input, .contact-form textarea {
+            transition: all 0.3s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            ring: 2px;
+            ring-blue-500;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 60px;
+                right: 10px;
+                background: #2d3748;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            .hamburger {
+                display: flex;
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 30;
+            }
+            .nav-bar a {
+                margin: 5px 0;
+            }
+            .mosaic {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="font-sans text-gray-900 smooth-scroll">
+<body class="text-white font-sans antialiased">
+    <!-- Side decorative elements -->
+    <div class="side-decor-left"></div>
+    <div class="side-decor-right"></div>
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav-bar flex space-x-4 bg-gray-800 bg-opacity-80 backdrop-blur-md p-4 rounded-lg fixed top-6 right-6 z-20">
+        <a href="#home" class="text-sm font-semibold text-white px-4 py-2 bg-gradient-to-r from-gray-600 to-blue-600 rounded-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-300" aria-label="Início">Início</a>
+        <a href="#about" class="text-sm font-semibold text-white px-4 py-2 bg-gradient-to-r from-gray-600 to-blue-600 rounded-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-300" aria-label="Sobre">Sobre</a>
+        <a href="#old-models" class="text-sm font-semibold text-white px-4 py-2 bg-gradient-to-r from-gray-600 to-blue-600 rounded-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-300" aria-label="Modelos Antigos">Modelos Antigos</a>
+        <a href="#new-models" class="text-sm font-semibold text-white px-4 py-2 bg-gradient-to-r from-gray-600 to-blue-600 rounded-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-300" aria-label="Modelos Novos">Modelos Novos</a>
+        <a href="#gallery" class="text-sm font-semibold text-white px-4 py-2 bg-gradient-to-r from-gray-600 to-blue-600 rounded-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-300" aria-label="Galeria">Galeria</a>
+        <a href="#contact" class="text-sm font-semibold text-white px-4 py-2 bg-gradient-to-r from-gray-600 to-blue-600 rounded-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-300" aria-label="Contato">Contato</a>
+    </nav>
+
     <!-- Header -->
-    <header class="header-bg text-white py-6 sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="logo-placeholder">
-                <span class="text-white">Logo IAPE</span>
-            </div>
-            <h1 class="text-3xl font-extrabold header-text">IAPE</h1>
-            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#sobre" class="hover:text-gray-300 transition font-semibold">Sobre</a>
-                <a href="#fotos" class="hover:text-gray-300 transition font-semibold">Fotos</a>
-                <a href="#contato" class="hover:text-gray-300 transition font-semibold">Contato</a>
-            </nav>
-            <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-gray-800 text-white transform translate-x-full md:hidden flex flex-col space-y-4 p-6">
-                <button id="menu-close" class="self-end text-white">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-                <a href="#sobre" class="hover:text-gray-300 transition font-semibold">Sobre</a>
-                <a href="#fotos" class="hover:text-gray-300 transition font-semibold">Fotos</a>
-                <a href="#contato" class="hover:text-gray-300 transition font-semibold">Contato</a>
-            </nav>
+    <header id="home" class="py-24 text-center bg-gradient-to-b from-gray-900 to-gray-700">
+        <div class="container mx-auto px-8">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-600 fade-in mx-auto">IAPE ARQUITETURA</h1>
+            <p class="text-xl md:text-2xl mt-6 fade-in mx-auto max-w-3xl">Instituto Adventista Pernambucano de Ensino</p>
         </div>
     </header>
 
-    <!-- Seção Sobre (Corpo com 3 colunas) -->
-    <section id="sobre" class="py-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-extrabold text-center header-text mb-12 fade-in">Sobre o IAPE</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center fade-in">
-                    <div class="bg-gray-500 h-48 w-full mb-4 rounded-lg flex items-center justify-center">
-                        <span class="text-gray-200">Foto Aqui</span>
-                    </div>
-                    <p class="text-lg">Nossa missão é oferecer educação de qualidade, promovendo valores e desenvolvimento integral.</p>
-                </div>
-                <div class="text-center fade-in">
-                    <div class="bg-gray-500 h-48 w-full mb-4 rounded-lg flex items-center justify-center">
-                        <span class="text-gray-200">Foto Aqui</span>
-                    </div>
-                    <p class="text-lg">Temos uma equipe dedicada de professores e profissionais comprometidos com o sucesso dos alunos.</p>
-                </div>
-                <div class="text-center fade-in">
-                    <div class="bg-gray-500 h-48 w-full mb-4 rounded-lg flex items-center justify-center">
-                        <span class="text-gray-200">Foto Aqui</span>
-                    </div>
-                    <p class="text-lg">Nossas instalações modernas proporcionam um ambiente ideal para o aprendizado.</p>
-                </div>
+    <!-- About Architecture Section -->
+    <section id="about" class="py-32 bg-gradient-to-b from-gray-800 to-gray-600">
+        <div class="container mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in">A Arquitetura do IAPE</h2>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed fade-in text-center">
+                O Instituto Adventista Pernambucano de Ensino (IAPE) destaca-se pela sua arquitetura que combina funcionalidade, estética e sustentabilidade. Projetado para harmonizar com o ambiente natural, o campus reflete a missão de promover um espaço acolhedor e propício ao aprendizado. Suas instalações incluem ginásios modernos, quadras poliesportivas, áreas de lazer, capelas e uma minifazenda educativa, todos planejados com atenção aos detalhes arquitetônicos. A arquitetura do IAPE integra elementos contemporâneos, como amplas janelas para iluminação natural, com toques clássicos que remetem à tradição adventista, criando um equilíbrio entre inovação e história.
+            </p>
+        </div>
+    </section>
+
+    <!-- Old Models Section -->
+    <section id="old-models" class="py-32 bg-gray-900">
+        <div class="container mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in">Modelos Antigos</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mosaic">
+                <img src="https://s2.glbimg.com/Cc9Ov5O2EXssh6sxuyl-V0gPAvU=/s.glbimg.com/jo/g1/f/original/2016/11/10/materia_1.jpg" alt="Fachada antiga do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
+                <img src="https://www.revistaadventista.com.br/wp-content/uploads/2017/06/fazendinha-Instituto-Adventista-Pernambucano-de-Ensino-4.jpg" alt="Minifazenda antiga do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
+                <img src="https://www.sescpr.com.br/wp-content/uploads/2019/02/IMG_20220830_193742-scaled.jpg" alt="Estrutura histórica do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
+                <img src="https://defato.com/_ups/noticias/2023/09/23/f75574cf76b3c64711992ebe593a300c.jpg" alt="Área externa antiga do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
             </div>
         </div>
     </section>
 
-    <!-- Seção Fotos (Mosaico) -->
-    <section id="fotos" class="py-16 bg-gradient-to-r from-brown-200 via-brown-300 to-brown-400">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-extrabold text-center header-text mb-12 fade-in">Galeria de Fotos</h2>
-            <div class="mosaic-grid">
-                <div class="bg-gray-500 h-48 rounded-lg flex items-center justify-center fade-in">
-                    <span class="text-gray-200">Foto 1</span>
-                </div>
-                <div class="bg-gray-500 h-48 rounded-lg flex items-center justify-center fade-in">
-                    <span class="text-gray-200">Foto 2</span>
-                </div>
-                <div class="bg-gray-500 h-48 rounded-lg flex items-center justify-center fade-in">
-                    <span class="text-gray-200">Foto 3</span>
-                </div>
-                <div class="bg-gray-500 h-48 rounded-lg flex items-center justify-center fade-in">
-                    <span class="text-gray-200">Foto 4</span>
-                </div>
-                <div class="bg-gray-500 h-48 rounded-lg flex items-center justify-center fade-in">
-                    <span class="text-gray-200">Foto 5</span>
-                </div>
-                <div class="bg-gray-500 h-48 rounded-lg flex items-center justify-center fade-in">
-                    <span class="text-gray-200">Foto 6</span>
-                </div>
+    <!-- New Models Section -->
+    <section id="new-models" class="py-32 bg-gradient-to-b from-gray-800 to-gray-600">
+        <div class="container mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in">Modelos Novos</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mosaic">
+                <img src="https://s2-ge.glbimg.com/QlmOLUp3BnkP-FMRkusWZB6-7Zk=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2019/1/i/HtAbwFRRuO1WxEcI2ODw/futsal-jec.jpg" alt="Nova quadra poliesportiva do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
+                <img src="https://www.educacaoadventistasul.com.br/wp-content/uploads/2019/12/canoas2-final-.jpg" alt="Nova fachada do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
+                <img src="https://itscool.srv.br/wp-content/uploads/2024/06/refeitorio-escolar-its-cool-1024x555.jpg" alt="Novo refeitório do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
+                <img src="data:image/jpeg;base64,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" alt="Nova área recreativa do IAPE" class="w-full h-72 object-cover rounded-lg shadow-lg fade-in cursor-pointer" loading="lazy">
             </div>
         </div>
     </section>
 
-    <!-- Seção Contato -->
-    <section id="contato" class="py-16 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-extrabold text-center header-text mb-12 fade-in">Entre em Contato</h2>
-            <div class="max-w-lg mx-auto fade-in">
-                <div class="space-y-4">
-                    <input id="nome" type="text" placeholder="Seu Nome" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-gray-600">
-                    <textarea id="mensagem" placeholder="Sua Mensagem" class="w-full p-3 border rounded-lg h-32 focus:ring-2 focus:ring-gray-600"></textarea>
-                    <button id="enviar-whatsapp" class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition font-semibold">Enviar via WhatsApp</button>
-                </div>
-            </div>
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-32 bg-gray-900">
+        <div class="container mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in">Galeria</h2>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed fade-in text-center">
+                Em breve, mais imagens da arquitetura do IAPE e cada vez mais e novas infraestruturas!
+            </p>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="header-bg text-white py-6">
-        <div class="container mx-auto px-4 text-center fade-in">
-            <p class="text-lg font-semibold">IAPE - Instituto Adventista Pernambucano de Ensino</p>
-            <p>Arthur | Telefone: (84) 99695-0052 | BR 232 KM 91, CEP</p>
-            <p>© 2025 IAPE. Todos os direitos reservados.</p>
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 bg-gradient-to-b from-gray-800 to-gray-600">
+        <div class="container mx-auto px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in">Contato</h2>
+            <div class="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed fade-in text-center">
+                <p>Entre em contato com Arthur Figueiró para mais informações sobre o IAPE.</p>
+                <p class="mt-6">Internato em Sairé, Pernambuco</p>
+                <p>Endereço: BR-232, KM 91 - Insurreição, Sairé - PE, 55695-000</p>
+            </div>
+            <form class="contact-form max-w-xl mx-auto mt-12 fade-in" onsubmit="sendToWhatsApp(event)">
+                <div class="mb-6">
+                    <label for="name" class="block text-sm font-medium text-white mb-2 text-center">Nome</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500" required aria-label="Seu nome">
+                </div>
+                <div class="mb-6">
+                    <label for="phone" class="block text-sm font-medium text-white mb-2 text-center">Telefone</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500" required aria-label="Seu número de telefone">
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-medium text-white mb-2 text-center">Mensagem</label>
+                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500" required aria-label="Sua mensagem"></textarea>
+                </div>
+                <button type="submit" class="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-400 text-white font-semibold rounded-lg hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-300 transition-all" aria-label="Enviar mensagem para o WhatsApp">Enviar via WhatsApp</button>
+            </form>
         </div>
-    </footer>
+    </section>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="Imagem ampliada">
+    </div>
+
+    <!-- JavaScript for Animations and Interactivity -->
     <script>
-        // Menu sanduíche
-        const menuToggle = document.getElementById('menu-toggle');
-        const menuClose = document.getElementById('menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // Fade-in and side decoration animation
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight)
+            );
+        }
 
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('menu-open');
-        });
-
-        menuClose.addEventListener('click', () => {
-            mobileMenu.classList.remove('menu-open');
-        });
-
-        // Rolagem suave
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                mobileMenu.classList.remove('menu-open');
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Animação de fade-in ao rolar
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        function handleScroll() {
+            const elements = document.querySelectorAll('.fade-in, .side-decor-left, .side-decor-right');
+            elements.forEach(el => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1 });
+        }
 
-        fadeElements.forEach(element => {
-            observer.observe(element);
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-bar');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
         });
 
-        // Enviar mensagem para WhatsApp
-        document.getElementById('enviar-whatsapp').addEventListener('click', () => {
-            const nome = document.getElementById('nome').value || 'Visitante';
-            const mensagem = document.getElementById('mensagem').value || 'Olá, gostaria de mais informações sobre o IAPE!';
-            const numero = '5584996950052'; // Número fornecido sem caracteres especiais
-            const texto = encodeURIComponent(`Olá, meu nome é ${nome}. ${mensagem}`);
-            window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
+        // Lightbox functionality
+        const images = document.querySelectorAll('.mosaic img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('active');
+            });
         });
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // WhatsApp form submission
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            const whatsappNumber = '+5584996950052';
+            const text = `Olá, Arthur! Meu nome é ${name}, telefone: ${phone}. Mensagem: ${message}`;
+            const encodedText = encodeURIComponent(text);
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
+            window.open(whatsappUrl, '_blank');
+        }
     </script>
 </body>
 </html>
-
-
